@@ -1,0 +1,56 @@
+package com.example.gameofset;
+
+import android.content.res.Resources;
+import android.view.View;
+import android.widget.ImageView;
+
+import androidx.core.content.res.ResourcesCompat;
+
+import com.example.gameofset.game.Card;
+import com.example.gameofset.game.CardPlace;
+
+public class Place implements CardPlace {
+    private boolean selected = false;
+    private final ImageView place;
+    Card card;
+    private final Resources resources;
+
+    public Place(ImageView place, Resources resources) {
+        this.place = place;
+        this.resources = resources;
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        this.place.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    @Override
+    public boolean isSelected() {
+        return selected;
+    }
+
+    @Override
+    public Card getCard() {
+        return card;
+    }
+
+    @Override
+    public void setCard(Card card) {
+        this.card = card;
+        if(card != null) {
+            this.place.setImageDrawable(ResourcesCompat.getDrawable(resources, card.getImageIdFromCard(),null));
+        }
+    }
+
+    @Override
+    public void select(boolean select) {
+        selected = select;
+        place.setAlpha(select ? 0.5f : 1f);
+    }
+
+    @Override
+    public int id() {
+        return place.getId();
+    }
+}

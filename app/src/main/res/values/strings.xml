@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Game of Set</string>
+    <string name="new_game">New game</string>
+    <string name="game_over">Game Over</string>
+    <string name="start_blue">Start</string>
+    <string name="send_button">Send</string>
+    <string name="start_server">Start Server</string>
+    <string name="connect">Connect</string>
+</resources>
