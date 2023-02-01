@@ -10,6 +10,12 @@ public class Card {
     public int shape; // rectangle, triangle, ellipse
     public int pattern; // empty, half, filled
     public int image_id;
+
+    private static int blank_id;
+    public static void init(MainActivity activity) {
+        blank_id = activity.getResources().getIdentifier("x", "drawable", activity.getPackageName());
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -37,5 +43,9 @@ public class Card {
 
     private int code() {
         return color * 27 + pattern * 9 + shape * 3 + count;
+    }
+
+    public void makeInvisible() {
+        this.image_id = blank_id;
     }
 }

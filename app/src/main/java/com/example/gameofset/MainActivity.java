@@ -1,11 +1,14 @@
 package com.example.gameofset;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Switch;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.example.gameofset.game.Card;
 import com.example.gameofset.game.DeckFactory;
@@ -16,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DeckFactory.init(this);
+        Card.init(this);
         setContentView(R.layout.activity_main);
     }
 
@@ -29,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GameActivity.class);
         GameActivity.curr_name = "fractal";
         startActivity(intent);
+    }
+
+    public void changeState(View view) {
+        @SuppressLint("UseSwitchCompatOrMaterialCode")
+        Switch hide_switch = findViewById(R.id.switch1);
+        DeckFactory.setState(hide_switch.isChecked());
     }
 
     @Override

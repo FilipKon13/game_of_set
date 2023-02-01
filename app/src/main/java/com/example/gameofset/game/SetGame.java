@@ -1,7 +1,6 @@
 package com.example.gameofset.game;
 
 import com.example.gameofset.GameOver;
-import com.example.gameofset.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,9 +15,7 @@ public class SetGame {
     private Deck deck;
 
     private void fillDeck(String name) {
-        List<Card> list = new DeckFactory().getDeck(name);
-        Collections.shuffle(list);
-        deck = new LocalDeck(list);
+        deck = new DeckFactory().getDeck(name);
     }
 
     private void addPlace(CardPlace place) {

@@ -2,6 +2,7 @@
     <string name="app_name">Game of Set</string>
     <string name="new_game">New game</string>
     <string name="new_game_fractal">New game V2</string>
+    <string name="hide_last">Hide last card</string>
     <string name="game_over">Game Over</string>
     <string name="start_blue">Start</string>
     <string name="send_button">Send</string>
