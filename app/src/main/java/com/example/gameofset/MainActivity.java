@@ -8,18 +8,26 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gameofset.game.Card;
+import com.example.gameofset.game.DeckFactory;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DeckFactory.init(this);
         setContentView(R.layout.activity_main);
-        Card.init(this);
     }
 
     public void onNewGame(View view) {
         Intent intent = new Intent(this, GameActivity.class);
+        GameActivity.curr_name = "card";
+        startActivity(intent);
+    }
+
+    public void onNewGameV2(View view) {
+        Intent intent = new Intent(this, GameActivity.class);
+        GameActivity.curr_name = "fractal";
         startActivity(intent);
     }
 

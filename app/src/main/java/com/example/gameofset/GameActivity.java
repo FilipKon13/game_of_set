@@ -18,13 +18,15 @@ public class GameActivity extends AppCompatActivity {
     private final HashMap<Integer, Place> placeFromId = new HashMap<>();
     private final ArrayList<Place> places = new ArrayList<>();
 
+    public static String curr_name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         System.out.println("onCreate");
         setContentView(R.layout.activity_game);
         initPlaceFromId(this);
-        game = new SetGame(places, () -> findViewById(R.id.textView).setVisibility(View.VISIBLE));
+        game = new SetGame(places, () -> findViewById(R.id.textView).setVisibility(View.VISIBLE),curr_name);
     }
 
     public void initPlaceFromId(AppCompatActivity activity) {
@@ -41,10 +43,6 @@ public class GameActivity extends AppCompatActivity {
 
     public void onSelect(View view) {
         game.clickPlace(Objects.requireNonNull(placeFromId.get(view.getId())));
-    }
-
-    public void testButton(View view) {
-        findViewById(R.id.textView).setVisibility(View.VISIBLE);
     }
 
     public void onGameOver(View view) {

@@ -9,13 +9,19 @@ public class Card {
     public int count; // 1, 2, 3
     public int shape; // rectangle, triangle, ellipse
     public int pattern; // empty, half, filled
-    private static final int DECK_SIZE = 81;
-    private static final int[] idFromCode = new int[DECK_SIZE];
-    private static boolean initialized = false;
+    public int image_id;
     @NonNull
     @Override
     public String toString() {
         return color + " " + count + " " + shape + " " + pattern;
+    }
+
+    public Card(int color, int count, int shape, int pattern, String name, MainActivity activity) {
+        this.color = color;
+        this.count = count;
+        this.shape = shape;
+        this.pattern = pattern;
+        this.image_id = activity.getResources().getIdentifier(name + code(), "drawable", activity.getPackageName());
     }
 
     public static boolean formSet(Card card1, Card card2, Card card3) {
@@ -26,15 +32,7 @@ public class Card {
     }
 
     public int getImageIdFromCard() {
-        return idFromCode[code()];
-    }
-
-    public static void init(MainActivity activity) {
-        if (initialized)  return;
-        initialized = true;
-        for(int i=0;i<DECK_SIZE;i++) {
-            idFromCode[i] = activity.getResources().getIdentifier("card" + (i + 1), "drawable", activity.getPackageName());
-        }
+        return image_id;
     }
 
     private int code() {

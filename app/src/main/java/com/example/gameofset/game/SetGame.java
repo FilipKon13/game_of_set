@@ -1,6 +1,7 @@
 package com.example.gameofset.game;
 
 import com.example.gameofset.GameOver;
+import com.example.gameofset.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,22 +15,8 @@ public class SetGame {
     private final CardPlace[] selectedPlaces;
     private Deck deck;
 
-    private void fillDeck() {
-        ArrayList<Card> list = new ArrayList<>();
-        for(int i=0;i<3;i++) {
-            for(int j=0;j<3;j++) {
-                for(int k=0;k<3;k++) {
-                    for(int l=0;l<3;l++) {
-                        Card card = new Card();
-                        card.count = i;
-                        card.pattern = j;
-                        card.shape = k;
-                        card.color = l;
-                        list.add(card);
-                    }
-                }
-            }
-        }
+    private void fillDeck(String name) {
+        List<Card> list = new DeckFactory().getDeck(name);
         Collections.shuffle(list);
         deck = new LocalDeck(list);
     }
@@ -60,8 +47,8 @@ public class SetGame {
         return selected == 3;
     }
 
-    public SetGame(ArrayList<? extends CardPlace> cardPlaces, GameOver ending) {
-        fillDeck();
+    public SetGame(ArrayList<? extends CardPlace> cardPlaces, GameOver ending, String deck_name) {
+        fillDeck(deck_name);
         places = new ArrayList<>();
         places.addAll(cardPlaces);
         System.out.println("filling");
