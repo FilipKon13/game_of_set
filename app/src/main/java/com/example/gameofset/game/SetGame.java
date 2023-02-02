@@ -14,8 +14,8 @@ public class SetGame {
     private final CardPlace[] selectedPlaces;
     private Deck deck;
 
-    private void fillDeck(String name) {
-        deck = new DeckFactory().getDeck(name);
+    private void fillDeck() {
+        deck = new DeckFactory().getDeck();
     }
 
     private void addPlace(CardPlace place) {
@@ -44,8 +44,8 @@ public class SetGame {
         return selected == 3;
     }
 
-    public SetGame(ArrayList<? extends CardPlace> cardPlaces, GameOver ending, String deck_name) {
-        fillDeck(deck_name);
+    public SetGame(ArrayList<? extends CardPlace> cardPlaces, GameOver ending) {
+        fillDeck();
         places = new ArrayList<>();
         places.addAll(cardPlaces);
         System.out.println("filling");

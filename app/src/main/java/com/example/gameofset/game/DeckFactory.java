@@ -11,15 +11,24 @@ import java.util.Objects;
 public class DeckFactory {
     private static final HashMap<String, List<Card>> hashMap = new HashMap<>();
     private static boolean hide_last_card = false;
+    private static String curr_deck = "card";
+
+    public final static String[] DECKS = new String[]{"card", "fractal", "sier"};
 
     public static void init(MainActivity activity) {
-        initName("card", activity);
-        initName("fractal", activity);
+        for(String deck : DECKS) {
+            initName(deck, activity);
+        }
     }
 
     public static void setState(boolean state) {
         System.out.println("New state " + state);
         hide_last_card = state;
+    }
+
+    public static void setDeck(String name) {
+        System.out.println("New deck " + name);
+        curr_deck = name;
     }
 
     private static void initName(String name, MainActivity activity) {
@@ -38,8 +47,8 @@ public class DeckFactory {
     }
 
 
-    public Deck getDeck(String name) {
-        List<Card> cards = new ArrayList<>(Objects.requireNonNull(hashMap.get(name)));
+    public Deck getDeck() {
+        List<Card> cards = new ArrayList<>(Objects.requireNonNull(hashMap.get(curr_deck)));
         Collections.shuffle(cards);
         if(hide_last_card) {
             return new LocalDeckHide(cards);
