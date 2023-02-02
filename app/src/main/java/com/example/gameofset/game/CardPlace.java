@@ -8,4 +8,5 @@ public interface CardPlace {
     void setCard(Card card);
 
     void setVisible(boolean visible);
+    void setHinted(boolean visible);
 }

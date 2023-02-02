@@ -1,6 +1,8 @@
 package com.example.gameofset;
 
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.PorterDuff;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -8,6 +10,8 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.example.gameofset.game.Card;
 import com.example.gameofset.game.CardPlace;
+
+import java.util.Collections;
 
 public class Place implements CardPlace {
     private boolean selected = false;
@@ -23,6 +27,11 @@ public class Place implements CardPlace {
     @Override
     public void setVisible(boolean visible) {
         this.place.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    @Override
+    public void setHinted(boolean visible) {
+        this.place.setImageTintList(visible ? ColorStateList.valueOf(0x2F000000) : ColorStateList.valueOf(0));
     }
 
     @Override

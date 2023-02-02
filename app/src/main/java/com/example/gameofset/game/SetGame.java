@@ -1,5 +1,8 @@
 package com.example.gameofset.game;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import com.example.gameofset.GameOver;
 
 import java.util.ArrayList;
@@ -157,7 +160,16 @@ public class SetGame {
         System.out.println("cleaning done");
     }
 
-    private boolean checkSetExists(List<Integer> usedIds) { // TODO: make n^2 with hashset
+    private static class Selection {
+        public int[] t = new int[3];
+        public Selection(int x, int y, int z) {
+            this.t[0] = x;
+            this.t[1] = y;
+            this.t[2] = z;
+        }
+    }
+
+    private Selection findSet(List<Integer> usedIds) {
         CardPlace[] place = new CardPlace[3];
         for(int i=0;i<visible;i++) {
             place[0] = places.get(i);
@@ -172,10 +184,33 @@ public class SetGame {
                     if (usedIds.contains(place[2].id()) || place[2].id() == place[1].id() || place[2].id() == place[0].id())
                         continue;
                     if(Card.formSet(place[0].getCard(), place[1].getCard(), place[2].getCard()))
-                        return true;
+                        return new Selection(i,j,k);
                 }
             }
         }
-        return false;
+        return null;
+    }
+
+    private boolean checkSetExists(List<Integer> usedIds) {
+        return findSet(usedIds) != null;
+    }
+
+    public void showHint() {
+        Selection set = findSet(Collections.emptyList());
+        if(set == null) return;
+        for(int id : set.t) {
+            CardPlace place = places.get(id);
+            place.setHinted(true);
+        }
+        final Handler handler = new Handler(Looper.myLooper());
+        handler.postDelayed(() -> clearHint(set), 1000);
+    }
+
+    private void clearHint(Selection set) {
+        System.out.println("Clear selection");
+        for(int id : set.t) {
+            CardPlace place = places.get(id);
+            place.setHinted(false);
+        }
     }
 }

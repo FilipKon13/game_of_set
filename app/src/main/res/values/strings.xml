@@ -4,4 +4,5 @@
     <string name="hide_last">Hide last card</string>
     <string name="game_over">Game Over</string>
     <string name="deck_type">Deck type</string>
+    <string name="hint">Hint</string>
 </resources>
