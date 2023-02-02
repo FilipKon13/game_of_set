@@ -5,7 +5,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Chronometer;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gameofset.game.SetGame;
@@ -20,6 +24,7 @@ public class GameActivity extends AppCompatActivity {
 
     private final HashMap<Integer, Place> placeFromId = new HashMap<>();
     private final ArrayList<Place> places = new ArrayList<>();
+    private Chronometer chronometer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +32,17 @@ public class GameActivity extends AppCompatActivity {
         System.out.println("onCreate");
         setContentView(R.layout.activity_game);
         initPlaceFromId(this);
-        game = new SetGame(places, () -> findViewById(R.id.textView).setVisibility(View.VISIBLE));
+        Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.game_action_bar);
+
+        chronometer = findViewById(R.id.chronometer);
+        chronometer.start();
+
+        game = new SetGame(places, () -> {
+            findViewById(R.id.textView).setVisibility(View.VISIBLE);
+            chronometer.stop();
+        });
     }
 
     @Override

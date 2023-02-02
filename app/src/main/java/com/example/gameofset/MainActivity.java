@@ -57,10 +57,6 @@ public class MainActivity extends AppCompatActivity {
         DeckFactory.setState(hide_switch.isChecked());
     }
 
-    public void changeDeck(View view) {
-
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

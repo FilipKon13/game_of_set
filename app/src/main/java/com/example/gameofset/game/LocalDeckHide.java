@@ -3,29 +3,19 @@ package com.example.gameofset.game;
 import java.util.List;
 import java.util.Stack;
 
-public class LocalDeckHide implements Deck {
-    private final Stack<Card> deck = new Stack<>();
+public class LocalDeckHide extends Stack<Card> implements Deck {
 
     public LocalDeckHide(List<Card> list) {
-        deck.addAll(list);
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return deck.isEmpty();
+        super();
+        this.addAll(list);
     }
 
     @Override
     public Card pop() {
-        Card res = deck.pop();
-        if(deck.isEmpty()) {
+        Card res = super.pop();
+        if(isEmpty()) {
             res.makeInvisible();
         }
         return res;
-    }
-
-    @Override
-    public Card peek() {
-        return deck.peek();
     }
 }

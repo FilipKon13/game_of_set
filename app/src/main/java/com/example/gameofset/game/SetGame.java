@@ -202,8 +202,7 @@ public class SetGame {
             CardPlace place = places.get(id);
             place.setHinted(true);
         }
-        final Handler handler = new Handler(Looper.myLooper());
-        handler.postDelayed(() -> clearHint(set), 1000);
+        new Handler(Looper.myLooper()).postDelayed(() -> clearHint(set), 1000);
     }
 
     private void clearHint(Selection set) {
