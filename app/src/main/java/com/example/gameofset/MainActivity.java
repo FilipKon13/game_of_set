@@ -24,14 +24,12 @@ public class MainActivity extends AppCompatActivity {
         Card.init(this);
         DeckFactory.setDeck("card");
         setContentView(R.layout.activity_main);
-        Spinner spinner = findViewById(R.id.spinner);
+        Spinner deck_spinner = findViewById(R.id.spinner);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                R.layout.deck_spinner, DeckFactory.DECKS);
+        deck_spinner.setAdapter(new ArrayAdapter<>(this,
+                R.layout.deck_spinner, DeckFactory.DECKS));
 
-        spinner.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        deck_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
@@ -40,10 +38,24 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
+
+        Spinner diff_spinner = findViewById(R.id.spinner2);
+        diff_spinner.setAdapter(new ArrayAdapter<>(this,
+                R.layout.diff_spinner, DeckFactory.DIFFS));
+
+        diff_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                DeckFactory.setDiff(((String) parent.getItemAtPosition(position)).equals("easy") ? 0 : 1);
+                System.out.println("diff " + parent.getItemAtPosition(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
     }
 
     public void onNewGame(View view) {
@@ -54,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     public void changeState(View view) {
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         Switch hide_switch = findViewById(R.id.switch1);
-        DeckFactory.setState(hide_switch.isChecked());
+        DeckFactory.setHideLastCard(hide_switch.isChecked());
     }
 
     @Override

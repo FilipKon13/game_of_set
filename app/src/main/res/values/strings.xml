@@ -5,4 +5,5 @@
     <string name="game_over">Game Over</string>
     <string name="deck_type">Deck type</string>
     <string name="hint">Hint</string>
+    <string name="diff">difficulty</string>
 </resources>

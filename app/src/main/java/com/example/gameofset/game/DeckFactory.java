@@ -12,8 +12,10 @@ public class DeckFactory {
     private static final HashMap<String, List<Card>> hashMap = new HashMap<>();
     private static boolean hide_last_card = false;
     private static String curr_deck = "card";
+    private static int diff = 1;
 
     public final static String[] DECKS = new String[]{"card", "fractal", "sier"};
+    public final static String[] DIFFS = new String[]{"normal", "easy"};
 
     public static void init(MainActivity activity) {
         for(String deck : DECKS) {
@@ -21,7 +23,7 @@ public class DeckFactory {
         }
     }
 
-    public static void setState(boolean state) {
+    public static void setHideLastCard(boolean state) {
         System.out.println("New state " + state);
         hide_last_card = state;
     }
@@ -29,6 +31,11 @@ public class DeckFactory {
     public static void setDeck(String name) {
         System.out.println("New deck " + name);
         curr_deck = name;
+    }
+
+    public static void setDiff(int new_diff) {
+        System.out.println("New diff " + new_diff);
+        diff = new_diff;
     }
 
     private static void initName(String name, MainActivity activity) {
@@ -49,6 +56,9 @@ public class DeckFactory {
 
     public Deck getDeck() {
         List<Card> cards = new ArrayList<>(Objects.requireNonNull(hashMap.get(curr_deck)));
+        if(diff == 0) {
+            cards = cards.subList(0,27);
+        }
         Collections.shuffle(cards);
         if(hide_last_card) {
             return new LocalDeckHide(cards);
