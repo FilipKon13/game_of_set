@@ -9,4 +9,5 @@ public interface CardPlace {
 
     void setVisible(boolean visible);
     void setHinted(boolean visible);
+    void deactivate();
 }

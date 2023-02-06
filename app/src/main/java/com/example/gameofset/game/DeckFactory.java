@@ -66,4 +66,12 @@ public class DeckFactory {
             return new LocalDeck(cards);
         }
     }
+
+    public Deck getEndless() {
+        List<Card> cards = new ArrayList<>(Objects.requireNonNull(hashMap.get(curr_deck)));
+        if(diff == 0) {
+            cards = cards.subList(0,27);
+        }
+        return new EndlessLocalDeck(cards);
+    }
 }

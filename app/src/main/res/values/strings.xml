@@ -6,4 +6,5 @@
     <string name="deck_type">Deck type</string>
     <string name="hint">Hint</string>
     <string name="diff">difficulty</string>
+    <string name="endless">Endless</string>
 </resources>

@@ -5,26 +5,26 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Chronometer;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.gameofset.game.DeckFactory;
 import com.example.gameofset.game.SetGame;
+import com.example.gameofset.util.CountUpTimer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Objects;
 
 public class GameActivity extends AppCompatActivity {
 
-    private SetGame game;
+    protected SetGame game;
 
-    private final HashMap<Integer, Place> placeFromId = new HashMap<>();
-    private final ArrayList<Place> places = new ArrayList<>();
-    private Chronometer chronometer;
+    protected final HashMap<Integer, Place> placeFromId = new HashMap<>();
+    protected final ArrayList<Place> places = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +36,29 @@ public class GameActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.game_action_bar);
 
-        chronometer = findViewById(R.id.chronometer);
-        chronometer.start();
+        prepare();
+    }
 
-        game = new SetGame(places, () -> {
+    protected void prepare() {
+        TextView textView = findViewById(R.id.chronometer);
+
+        CountUpTimer timer = new CountUpTimer(100) {
+            @Override
+            public void update(long millis) {
+                long seconds = millis / 1000;
+                long minutes = seconds / 60;
+                seconds %= 60;
+                millis %= 1000;
+                millis /= 100;
+                textView.setText(String.format(Locale.ENGLISH, "%d:%02d.%01d", minutes, seconds, millis));
+            }
+        };
+
+        timer.start();
+
+        game = new SetGame(new DeckFactory().getDeck(), places, () -> {
             findViewById(R.id.textView).setVisibility(View.VISIBLE);
-            chronometer.stop();
+            timer.cancel();
         });
     }
 
@@ -62,7 +79,7 @@ public class GameActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void initPlaceFromId(AppCompatActivity activity) {
+    protected void initPlaceFromId(AppCompatActivity activity) {
         places.clear();
         placeFromId.clear();
         for (int i = 1; i <= 21; i++) {

@@ -35,6 +35,11 @@ public class Place implements CardPlace {
     }
 
     @Override
+    public void deactivate() {
+        this.place.setOnClickListener(view -> {});
+    }
+
+    @Override
     public boolean isSelected() {
         return selected;
     }

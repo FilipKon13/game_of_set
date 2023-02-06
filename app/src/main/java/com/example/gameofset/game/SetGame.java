@@ -17,10 +17,6 @@ public class SetGame {
     private final CardPlace[] selectedPlaces;
     private Deck deck;
 
-    private void fillDeck() {
-        deck = new DeckFactory().getDeck();
-    }
-
     private void addPlace(CardPlace place) {
         for(int i=0;i<3;i++) {
             if(selectedPlaces[i] == null) {
@@ -47,14 +43,21 @@ public class SetGame {
         return selected == 3;
     }
 
-    public SetGame(ArrayList<? extends CardPlace> cardPlaces, GameOver ending) {
-        fillDeck();
+    public SetGame(Deck deck, ArrayList<? extends CardPlace> cardPlaces, GameOver ending) {
+        this.deck = deck;
         places = new ArrayList<>();
         places.addAll(cardPlaces);
         System.out.println("filling");
         fillBoard();
         selectedPlaces = new CardPlace[3];
         this.ending = ending;
+    }
+
+    public void endGame() {
+        ending.endGame();
+        for(CardPlace place : places) {
+            place.deactivate();
+        }
     }
 
     private void fillBoard() {
@@ -72,7 +75,7 @@ public class SetGame {
         }
     }
 
-    public void clickPlace(CardPlace place) {
+    public boolean clickPlace(CardPlace place) {
         if (place.isSelected()) {
             place.select(false);
             System.out.println("unselect");
@@ -85,16 +88,18 @@ public class SetGame {
             addPlace(place);
             if (checkFullSelected()) {
                 System.out.println("3rd selected");
-                checkSet();
+                return checkSet();
             }
         }
+        return false;
     }
 
-    private void checkSet() {
+    private boolean checkSet() {
         if (!Card.formSet(selectedPlaces[0].getCard(), selectedPlaces[1].getCard(), selectedPlaces[2].getCard()))
-            return;
+            return false;
         System.out.println("Set!");
         refillBoard();
+        return true;
     }
 
     private void refillBoard() {

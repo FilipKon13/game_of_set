@@ -63,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onNewEndless(View view) {
+        Intent intent = new Intent(this, EndlessGameActivity.class);
+        startActivity(intent);
+    }
+
     public void changeState(View view) {
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         Switch hide_switch = findViewById(R.id.switch1);
