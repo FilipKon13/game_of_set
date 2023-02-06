@@ -12,6 +12,7 @@ import java.util.List;
 public class SetGame {
     private final ArrayList<CardPlace> places;
     private final GameOver ending;
+    private final ScorePoint scorePoint;
     private int selected = 0;
     private int visible = 12;
     private final CardPlace[] selectedPlaces;
@@ -43,7 +44,8 @@ public class SetGame {
         return selected == 3;
     }
 
-    public SetGame(Deck deck, ArrayList<? extends CardPlace> cardPlaces, GameOver ending) {
+    public SetGame(Deck deck, ArrayList<? extends CardPlace> cardPlaces, GameOver ending,
+                   ScorePoint scorePoint) {
         this.deck = deck;
         places = new ArrayList<>();
         places.addAll(cardPlaces);
@@ -51,6 +53,7 @@ public class SetGame {
         fillBoard();
         selectedPlaces = new CardPlace[3];
         this.ending = ending;
+        this.scorePoint = scorePoint;
     }
 
     public void endGame() {
@@ -99,6 +102,7 @@ public class SetGame {
             return false;
         System.out.println("Set!");
         refillBoard();
+        scorePoint.scorePoint();
         return true;
     }
 

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.gameofset.game.DeckFactory;
 import com.example.gameofset.game.SetGame;
 import com.example.gameofset.util.CountUpTimer;
+import com.example.gameofset.game.ScorePoint;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,7 +60,7 @@ public class GameActivity extends AppCompatActivity {
         game = new SetGame(new DeckFactory().getDeck(), places, () -> {
             findViewById(R.id.textView).setVisibility(View.VISIBLE);
             timer.cancel();
-        });
+        }, new ScorePoint(findViewById(R.id.scoreboard)));
     }
 
     @Override

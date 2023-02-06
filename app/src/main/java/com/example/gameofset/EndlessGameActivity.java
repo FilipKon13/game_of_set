@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.gameofset.game.DeckFactory;
+import com.example.gameofset.game.ScorePoint;
 import com.example.gameofset.game.SetGame;
 import com.example.gameofset.util.AdditiveCountDownTimer;
 import com.example.gameofset.util.TimeDispenser;
@@ -21,7 +22,7 @@ public class EndlessGameActivity extends GameActivity {
 
         game = new SetGame(new DeckFactory().getEndless(), places, () -> {
             findViewById(R.id.textView).setVisibility(View.VISIBLE);
-        });
+        }, new ScorePoint(findViewById(R.id.scoreboard)));
 
         timer = new AdditiveCountDownTimer(20000, 100) {
             @Override
